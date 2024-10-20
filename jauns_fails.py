@@ -1,5 +1,5 @@
 Tiek pievienots viens jauns commits
-
+++
 Tiek pievienots otrais commits!
 
 X=5;
