@@ -1,10 +1,6 @@
-++
-
 Tiek pievienots viens jauns commits
 
 Tiek pievienots otrais commits!
-
-Kā iet?
 
 X=5;
 
@@ -14,3 +10,4 @@ y=3;
 
 Treniņš norit labi
 
+Tiek veikti uzlabojumi
