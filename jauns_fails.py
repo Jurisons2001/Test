@@ -1,3 +1,4 @@
+++
 
 Tiek pievienots viens jauns commits
 
@@ -11,5 +12,5 @@ X=5;
 
 y=3;
 
-Treniņš nori labi
+Treniņš norit labi
 
