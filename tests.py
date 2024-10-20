@@ -1,6 +1,6 @@
 Paldies!
 Kaut kas ir jāieraksta
 Release pievienots
-Veicam izmaiņas ar'išajā failā
+Veicam izmaiņas arī šajā failā
 
 
