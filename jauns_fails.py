@@ -1,3 +1,4 @@
+
 Tiek pievienots viens jauns commits
 
 tiek pievienots otrais commits!
@@ -9,4 +10,6 @@ X=5;
 šis ir jauns commit
 
 y=3;
+
+Treniņš nori labi
 
