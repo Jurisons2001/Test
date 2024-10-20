@@ -1,8 +1,8 @@
 ++
-Aptrūkstas vārdu
+
 Tiek pievienots viens jauns commits
 
-tiek pievienots otrais commits!
+Tiek pievienots otrais commits!
 
 Kā iet?
 
