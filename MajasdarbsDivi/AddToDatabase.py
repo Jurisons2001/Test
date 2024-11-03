@@ -1,21 +1,27 @@
 from Database import Database
 
-class BookManager:
-    """Manages book operations, including adding news books."""
+    # A class that manages book operations, including adding new books
 
+class BookManager:
+
+    # Adds a new book to the Books table
+    
     @staticmethod
-    def add_book(title, author, genre, year_published, isbn, available_copies):
-        """Add a new book to the Books table."""
+    def add_book(title, author, genre, year_published):
+
         conn = Database.create_connection()
         cursor = conn.cursor()
+
         cursor.execute('''
-            INSERT INTO Books (title, author, genre, year_published, isbn, available_copies)
-            VALUES (?, ?, ?, ?, ?, ?)
-        ''', (title, author, genre, year_published, isbn, available_copies))
+            INSERT INTO Books (title, author, genre, year_published)
+            VALUES (?, ?, ?, ?)
+        ''', (title, author, genre, year_published))
+
         conn.commit()
         conn.close()
-        print("Book added successfully.")
+        print("Book added.")
 
-# Example usage
+# Here we create the information of the attached book, see the line 10 to guide you.
+
 if __name__ == "__main__":
-    BookManager.add_book("Sample Book", "Author Name", "Fiction", 2023, "122234567890", 5)
+    BookManager.add_book("Sample Book", "Author Name", "Fiction", 2023)

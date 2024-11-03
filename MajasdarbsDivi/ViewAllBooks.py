@@ -1,12 +1,13 @@
 from Database import Database
 
+# This class provides methods for viewing book information
+# Method that gets and displays all books from the Books table
+
 class BookViewer:
-    """Provides methods to view book information."""
 
     @staticmethod
     def view_all_books():
-        """Fetch and display all books from the Books table."""
-        
+
         conn = Database.create_connection()
         cursor = conn.cursor()
 
@@ -18,6 +19,6 @@ class BookViewer:
 
         conn.close()
 
-# Example usage
+
 if __name__ == "__main__":
     BookViewer.view_all_books()
