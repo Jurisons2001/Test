@@ -1,28 +1,24 @@
 import sqlite3
 import json
 
-# Load configuration from external configuration file
-
+# Load configuration
 with open('config.json', 'r') as config_file:
     config = json.load(config_file)
 
+DATABASE_PATH = config["database_path"]
 
 class Database:
 
-# Connects to the book database
-
     @staticmethod
     def create_connection():
-        return sqlite3.connect(config["database_path"])
-
-
-# Creates the table Books, if it does not exist, you can add or subtract cells of your choice
+        return sqlite3.connect(DATABASE_PATH)
 
     @staticmethod
-    def create_table():        
+    def create_table():
         conn = Database.create_connection()
         cursor = conn.cursor()
 
+        # Initial schema only
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS Books (
                 id INTEGER PRIMARY KEY,
@@ -32,12 +28,8 @@ class Database:
                 year_published INTEGER
             )
         ''')
-
-# Closes the cursor and database connection session.
-
         conn.commit()
         conn.close()
-
 
 if __name__ == "__main__":
     Database.create_table()

@@ -1,29 +1,72 @@
-from Database import Database
+import os
 import sqlite3
+import logging
+import json
+import time
+from datetime import datetime
 
-    # Class that manages database migrations
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger("migration_logger")
 
-class DatabaseMigrator:
+# Load database path from config
+with open('config.json', 'r') as config_file:
+    config = json.load(config_file)
 
-    # Adds a new 'self-selected' column to the Books table if it doesn't exist
-    # To add another name, instead of "publisher" in the code, we write the column name of our choice
-    # after execution, the "AddToDatabase" file add_book method must be updated so that a new book can be added
-    
-    @staticmethod
-    def migrate():
-        conn = Database.create_connection()
+DATABASE_PATH = config["database_path"]
+
+def create_connection():
+    return sqlite3.connect(DATABASE_PATH)
+
+def ensure_migrations_table_exists(conn):
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS migrations (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT UNIQUE,
+            exec_ts INTEGER,
+            exec_dt TEXT
+        )
+    ''')
+    conn.commit()
+
+def is_migration_applied(conn, migration_name):
+    cursor = conn.cursor()
+    cursor.execute("SELECT COUNT(*) FROM migrations WHERE name = ?", (migration_name,))
+    return cursor.fetchone()[0] > 0
+
+def apply_migration(conn, migration_name, migration_sql):
+    try:
         cursor = conn.cursor()
+        cursor.executescript(migration_sql)
+        timestamp = int(time.time())
+        exec_date = datetime.utcfromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')
+        cursor.execute("INSERT INTO migrations (name, exec_ts, exec_dt) VALUES (?, ?, ?)",
+                       (migration_name, timestamp, exec_date))
+        conn.commit()
+        logger.info(f"Migration {migration_name} applied successfully.")
+    except sqlite3.Error as e:
+        logger.error(f"Failed to apply migration {migration_name}: {e}")
+        conn.rollback()
 
-        try:
-            cursor.execute('''ALTER TABLE Books ADD COLUMN publisher TEXT''')
-            conn.commit()
-            print("New column 'publisher' added to table Books.")
+def run_migrations():
+    conn = create_connection()
+    ensure_migrations_table_exists(conn)
 
-        except sqlite3.OperationalError:
-            print("Column 'publisher' already exists.")
+    migrations_path = "./migrations"
+    migration_files = sorted([f for f in os.listdir(migrations_path) if f.endswith('.sql')])
 
-        finally:
-            conn.close()
+    for migration_file in migration_files:
+        if not is_migration_applied(conn, migration_file):
+            with open(os.path.join(migrations_path, migration_file), 'r') as file:
+                migration_sql = file.read()
+                logger.info(f"Applying migration: {migration_file}")
+                apply_migration(conn, migration_file, migration_sql)
+        else:
+            logger.info(f"Migration {migration_file} already applied.")
+
+    conn.close()
+    logger.info("All migrations complete.")
 
 if __name__ == "__main__":
-    DatabaseMigrator.migrate()
+    run_migrations()

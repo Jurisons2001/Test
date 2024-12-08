@@ -1,23 +1,17 @@
 from Database import Database
 
-# This class manages the deletion of books
-
 class BookDeleter:
 
-# The method that deletes a book from the Books table by ID can also be changed and put another parameter.    
-
     @staticmethod
-    def delete_book(id):
+    def delete_book(book_id):
         conn = Database.create_connection()
         cursor = conn.cursor()
 
-        cursor.execute("DELETE FROM Books WHERE id = ?", (id,))
+        cursor.execute("DELETE FROM Books WHERE id = ?", (book_id,))
         conn.commit()
-
         conn.close()
-        print("Book deleted.")
-
-# ID must be an integer value
+        print(f"Book with ID {book_id} deleted successfully.")
 
 if __name__ == "__main__":
-    BookDeleter.delete_book(1)  
+    # Replace 1 with the ID of the book you want to delete
+    BookDeleter.delete_book(1)
