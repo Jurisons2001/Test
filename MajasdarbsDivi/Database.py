@@ -1,7 +1,10 @@
 import sqlite3
 import json
 
-# Load configuration
+#Šī klase nodrošina funkcionalitāti datubāzes savienojuma izveidei un tabulu pārvaldībai.
+
+#Ielādē konfigurācijas failu, lai iegūtu datubāzes ceļu.
+
 with open('config.json', 'r') as config_file:
     config = json.load(config_file)
 
@@ -13,12 +16,13 @@ class Database:
     def create_connection():
         return sqlite3.connect(DATABASE_PATH)
 
+#Izveido tabulu 'Books', ja tā vēl neeksistē. Tabulas struktūra ir piemērota grāmatu uzglabāšanai.
+
     @staticmethod
     def create_table():
         conn = Database.create_connection()
         cursor = conn.cursor()
 
-        # Initial schema only
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS Books (
                 id INTEGER PRIMARY KEY,

@@ -1,5 +1,7 @@
 from Database import Database
 
+#Šī klase nodrošina funkcionalitāti grāmatu pievienošanai datubāzei.
+
 class BookManager:
 
     @staticmethod
@@ -7,7 +9,8 @@ class BookManager:
         conn = Database.create_connection()
         cursor = conn.cursor()
 
-        # Insert query to handle both mandatory and optional columns
+ #SQL komanda grāmatas datu ievietošanai, ietverot obligātos un papildu laukus.
+
         cursor.execute('''
             INSERT INTO Books (title, author, genre, year_published, publisher, rating, language)
             VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -16,6 +19,8 @@ class BookManager:
         conn.commit()
         conn.close()
         print("Book added successfully.")
+
+#Izsauc metodi, lai pievienotu grāmatu ar piemēra datiem.
 
 if __name__ == "__main__":
     BookManager.add_book(
