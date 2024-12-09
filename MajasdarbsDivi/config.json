@@ -1,13 +1,9 @@
 {
-"database":{
     "database_path": "BooksDataBase.db",
-    "timeout": 30,
-    "name": "Book Library"
-},
-"application": {
-    "name": "Book Library",
-    "version": "1.0.0",
-    "developer": "Gatis Jurisons",
-    "support_email": "gatis.jurisons@inbox.lv"
+    "application": {
+        "name": "Book Library",
+        "version": "1.0.0",
+        "developer": "Gatis Jurisons",
+        "support_email": "gatis.jurisons@inbox.lv"
     }
 }
