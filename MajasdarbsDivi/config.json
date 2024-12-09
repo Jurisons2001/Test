@@ -1,0 +1,9 @@
+{
+    "database_path": "BooksDataBase.db",
+    "application": {
+        "name": "Book Library",
+        "version": "1.0.0",
+        "developer": "Gatis Jurisons",
+        "support_email": "gatis.jurisons@inbox.lv"
+    }
+}

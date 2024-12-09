@@ -6,3 +6,7 @@ y=3;
 Treniņš norit labi
 Tiek veikti uzlabojumi
 Pēdējais commits failam
+
+
+Šis ir jauns papildinājums
+
