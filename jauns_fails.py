@@ -1,5 +1,5 @@
 Relīze 2.0.0
-
+Relīze 2.0.2
 Tiek pievienots viens jauns commits
 Tiek pievienots otrais commits!
 X=5;
